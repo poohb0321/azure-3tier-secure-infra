@@ -1,0 +1,44 @@
+# azure-pipelines.yml  (placed in repo root)
+
+trigger:
+- main     # run automatically on every push to main
+
+pool:
+  vmImage: ubuntu-latest      # Microsoft‑hosted Linux agent
+
+steps:
+# 1) Checkout code
+- checkout: self
+
+# 2) Log in to Azure with the service connection
+- task: AzureCLI@2
+  displayName: "Azure CLI – Login with SPN"
+  inputs:
+    azureSubscription: AzureSPN          # exact name from Service Connection
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: echo "Logged in"
+
+# 3) Terraform init + validate
+- script: |
+    terraform -version
+    terraform init -input=false \
+      -backend-config="resource_group_name=rg-tfstate" \
+      -backend-config="storage_account_name=mynewtfstate" \
+      -backend-config="container_name=tfstate" \
+      -backend-config="key=dev.tfstate"
+    terraform validate
+  displayName: "Terraform init & validate"
+  workingDirectory: environments/dev     # adjust if your .tf files live elsewhere
+
+# 4) Terraform plan
+- script: |
+    terraform plan -out=tfplan
+  displayName: "Terraform plan"
+  workingDirectory: environments/dev
+
+# 5) (Optional) Terraform apply – uncomment after you trust the plan
+# - script: |
+#     terraform apply -auto-approve tfplan
+#   displayName: "Terraform apply"
+#   workingDirectory: environments/dev
