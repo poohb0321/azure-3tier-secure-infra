@@ -1,18 +1,18 @@
-# azure-pipelines.yml  (root of repo)
-
+# azure-pipelines.yml  – root of repo
+# -------------------------------------------------
 trigger:
-- main                               # auto‑run on every push to main
+- main                   # run on every push to main
 
 variables:
-- group: backend-secrets             # loads ARM_* env vars from Variable Group
+- group: backend-secrets # loads ARM_* env‑vars (client‑ID, secret, tenant, sub)
 
 stages:
+# ───────────────────────────── Dev stage ─────────────────────────────
 - stage: Dev
   displayName: "Deploy to Dev"
   jobs:
   - job: Terraform
-    displayName: "Terraform – Dev"
-    timeoutInMinutes: 60
+    displayName: "Terraform – Dev"
     pool:
       vmImage: ubuntu-latest
 
@@ -20,43 +20,63 @@ stages:
     # 1) Checkout code
     - checkout: self
 
-    # 2) Login to Azure with the service connection
+    # 2) Azure CLI login (quick sanity‑check the service connection)
     - task: AzureCLI@2
       displayName: "Azure CLI login via SPN"
       inputs:
-        azureSubscription: AzureSPN        # service connection name
+        azureSubscription: AzureSPN    # ← service‑connection *exact* name
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: echo "Azure login OK"
 
-    # 3) (Optional) IaC security scan – tfsec
+    # 3) (optional) tfsec scan
     - script: |
         curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
         tfsec environments/dev --no-color
       displayName: "tfsec scan"
 
-    # 4) Terraform init + validate
-    - script: |
-        terraform -version
-        terraform init -input=false \
-          -backend-config="resource_group_name=rg-secure-infra" \
-          -backend-config="storage_account_name=secureterraformstate" \
-          -backend-config="container_name=tfstate" \
-          -backend-config="key=dev.tfstate"
-        terraform validate
-      displayName: "Terraform init & validate"
-      workingDirectory: environments/dev
+    # ─────────── Terraform tasks (official extension) ───────────
+    # 4) terraform init  (remote backend in new subscription)
+    - task: TerraformTask@5
+      displayName: "Terraform init"
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'AzureSPN'
+        backendAzureRmResourceGroupName: 'rg-secure-infra'
+        backendAzureRmStorageAccountName: 'secureterraformstate'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'dev.tfstate'
+        backendAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
 
-    # 5) Terraform plan
-    - script: terraform plan -out=tfplan
+    # 5) terraform validate
+    - task: TerraformTask@5
+      displayName: "Terraform validate"
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+
+    # 6) terraform plan
+    - task: TerraformTask@5
       displayName: "Terraform plan"
-      workingDirectory: environments/dev
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+        environmentServiceNameAzureRM: 'AzureSPN'
+        environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
+        commandOptions: '-out=tfplan'
 
-    # 6) Terraform apply (auto‑approve flag can be removed for manual gate)
-    - script: terraform apply -auto-approve tfplan
+    # 7) terraform apply  (auto‑approve; remove flag for manual approval)
+    - task: TerraformTask@5
       displayName: "Terraform apply"
-      workingDirectory: environments/dev
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+        environmentServiceNameAzureRM: 'AzureSPN'
+        environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
+        commandOptions: '-auto-approve tfplan'
       env:
         TF_LOG: ERROR
-      # Uncomment to require manual approval before apply
-      # condition: and(succeeded(), eq(variables['Build.Reason'], 'Manual'))
