@@ -1,0 +1,62 @@
+# azure-pipelines.yml  (root of repo)
+
+trigger:
+- main                               # auto‑run on every push to main
+
+variables:
+- group: backend-secrets             # loads ARM_* env vars from Variable Group
+
+stages:
+- stage: Dev
+  displayName: "Deploy to Dev"
+  jobs:
+  - job: Terraform
+    displayName: "Terraform – Dev"
+    timeoutInMinutes: 60
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+    # 1) Checkout code
+    - checkout: self
+
+    # 2) Login to Azure with the service connection
+    - task: AzureCLI@2
+      displayName: "Azure CLI login via SPN"
+      inputs:
+        azureSubscription: AzureSPN        # service connection name
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: echo "Azure login OK"
+
+    # 3) (Optional) IaC security scan – tfsec
+    - script: |
+        curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+        tfsec environments/dev --no-color
+      displayName: "tfsec scan"
+
+    # 4) Terraform init + validate
+    - script: |
+        terraform -version
+        terraform init -input=false \
+          -backend-config="resource_group_name=rg-secure-infra" \
+          -backend-config="storage_account_name=secureterraformstate" \
+          -backend-config="container_name=tfstate" \
+          -backend-config="key=dev.tfstate"
+        terraform validate
+      displayName: "Terraform init & validate"
+      workingDirectory: environments/dev
+
+    # 5) Terraform plan
+    - script: terraform plan -out=tfplan
+      displayName: "Terraform plan"
+      workingDirectory: environments/dev
+
+    # 6) Terraform apply (auto‑approve flag can be removed for manual gate)
+    - script: terraform apply -auto-approve tfplan
+      displayName: "Terraform apply"
+      workingDirectory: environments/dev
+      env:
+        TF_LOG: ERROR
+      # Uncomment to require manual approval before apply
+      # condition: and(succeeded(), eq(variables['Build.Reason'], 'Manual'))
