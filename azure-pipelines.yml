@@ -70,7 +70,9 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
         environmentServiceNameAzureRM: AzureSPN
         environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
-        commandOptions: '-out=tfplan'
+        commandOptions: '-out=tfplan -detailed-exitcode'
+      env:
+        TF_LOG: INFO
 
     # 7) terraform apply  (auto-approve; remove flag for manual gate)
     - task: TerraformTask@5
