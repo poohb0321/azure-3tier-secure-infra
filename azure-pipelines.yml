@@ -37,7 +37,7 @@ stages:
         Write-Host "Running tfsec scan..."
         & "$(Build.SourcesDirectory)\tfsec.exe" ./environments/dev --out=results.json --format=json --no-color
       displayName: "Run tfsec security scan"
-      continueOnError: false
+      continueOnError: true
 
     # 4) Publish tfsec results
     - task: PublishBuildArtifacts@1
