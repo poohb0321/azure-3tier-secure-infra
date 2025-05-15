@@ -28,7 +28,21 @@ stages:
         scriptType: ps         # or use 'ps'
         scriptLocation: inlineScript
         inlineScript: |
-          Write-Host "Azure login OK"
+          $rg = "rg-secure-infra"
+          $sa = "secureterraformstate"
+          $container = "tfstate"
+          $location = "eastus"  # <-- Update to your preferred region
+
+          if (-not (az group show --name $rg --output none 2>$null)) {
+            az group create --name $rg --location $location
+          }
+
+          if (-not (az storage account show --name $sa --resource-group $rg --output none 2>$null)) {
+            az storage account create --name $sa --resource-group $rg --location $location --sku Standard_LRS
+          }
+
+          $key = az storage account keys list --resource-group $rg --account-name $sa --query [0].value -o tsv
+          az storage container create --name $container --account-name $sa --account-key $key
 
     # 4) terraform init  (remote backend)
     - task: TerraformTask@5
