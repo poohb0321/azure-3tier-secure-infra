@@ -14,7 +14,7 @@ stages:
   - job: Terraform
     displayName: "Terraform – Dev"
     pool:
-      vmImage: ubuntu-latest
+      name: mypool
 
     steps:
     # 1) Checkout repo
