@@ -25,9 +25,10 @@ stages:
       displayName: "Azure CLI login via SPN"
       inputs:
         azureSubscription: AzureSPN
-        scriptType: pscore
+        scriptType: pscore         # or use 'ps'
         scriptLocation: inlineScript
-        inlineScript: echo "Azure login OK"
+        inlineScript: |
+          Write-Host "Azure login OK"
 
     # 3) (optional) tfsec IaC scan
     - script: |
@@ -81,16 +82,5 @@ stages:
       env:
         TF_LOG: ERROR
 
-    # 8) (optional) run a post-deploy Bash script
-
-
-    - task: AzureCLI@2
-      displayName: "Azure CLI login via SPN"
-      inputs:
-        azureSubscription: AzureSPN
-        scriptType: pscore          # or powershell
-        scriptLocation: inlineScript
-        inlineScript: |
-          Write-Host "Azure login OK"
 
 
