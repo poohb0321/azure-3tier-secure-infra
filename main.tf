@@ -3,15 +3,6 @@ resource "azurerm_resource_group" "infra" {
   location = "eastus"
 }
 
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "rg-tfstate"
-    storage_account_name = "mynewtfstate"   
-    container_name       = "tfstate"
-    key                  = "dev.tfstate"   
-  }
-}
-
 module "networking" {
   source = "./modules/networking"
 
