@@ -30,14 +30,16 @@ stages:
         inlineScript: |
           az account show
 
-    - script: |
-        echo "Installing tfsec..."
-        curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-        echo "Running tfsec scan..."
-        tfsec ./environments/dev --out=results.json --format=json --no-color
+    # 3) Install and run tfsec on Windows
+    - powershell: |
+        Write-Host "Downloading tfsec..."
+        Invoke-WebRequest -Uri "https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-windows-amd64.exe" -OutFile "$(Build.SourcesDirectory)\tfsec.exe"
+        Write-Host "Running tfsec scan..."
+        & "$(Build.SourcesDirectory)\tfsec.exe" ./environments/dev --out=results.json --format=json --no-color
       displayName: "Run tfsec security scan"
       continueOnError: false
 
+    # 4) Publish tfsec results
     - task: PublishBuildArtifacts@1
       displayName: "Publish tfsec JSON report"
       inputs:
