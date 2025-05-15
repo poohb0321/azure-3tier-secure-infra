@@ -82,11 +82,15 @@ stages:
         TF_LOG: ERROR
 
     # 8) (optional) run a post-deploy Bash script
+
+
     - task: AzureCLI@2
-      displayName: "Post-deploy script"
+      displayName: "Azure CLI login via SPN"
       inputs:
         azureSubscription: AzureSPN
-        scriptType: bash
-        scriptLocation: scriptPath
-        scriptPath: scripts/deploy-terraform.sh
-        arguments: '-var environment=dev'
+        scriptType: pscore          # or powershell
+        scriptLocation: inlineScript
+        inlineScript: |
+          Write-Host "Azure login OK"
+
+
