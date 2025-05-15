@@ -25,7 +25,7 @@ stages:
       displayName: "Azure CLI login via SPN"
       inputs:
         azureSubscription: AzureSPN
-        scriptType: bash
+        scriptType: pscore
         scriptLocation: inlineScript
         inlineScript: echo "Azure login OK"
 
