@@ -46,7 +46,8 @@ stages:
           Write-Error "tfsec found $($failures.Count) HIGH or CRITICAL issues. Failing build."
           exit 1
         } else {
-          Write-Host "tfsec completed with only LOW/MEDIUM issues. Passing build."
+          Write-Host "✅ tfsec completed with only LOW/MEDIUM issues. Build will continue."
+          exit 0  # ✅ Explicitly mark as successful
         }
       displayName: "Run tfsec scan (fail on HIGH/CRITICAL)"
       continueOnError: false
