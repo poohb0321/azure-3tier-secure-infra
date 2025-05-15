@@ -79,7 +79,7 @@ stages:
         backendAzureRmStorageAccountName: 'secureterraformstate123'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'dev.tfstate'
-        commandOptions: '-reconfigure'
+        commandOptions: '-upgrade -reconfigure'
 
     # 5) terraform validate
     - task: TerraformTask@5
