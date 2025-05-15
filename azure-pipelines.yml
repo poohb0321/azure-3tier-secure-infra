@@ -61,7 +61,12 @@ stages:
         publishLocation: 'Container'
 
 
-    # 4) terraform init  (remote backend)
+    # 4a) terraform init with upgrade (for provider fixes)
+    - script: terraform init -upgrade
+      workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+      displayName: "Terraform init with upgrade (provider refresh)"
+
+    # 4b) terraform init (remote backend setup)
     - task: TerraformTask@5
       displayName: "Terraform init"
       inputs:
