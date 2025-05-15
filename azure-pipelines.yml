@@ -30,14 +30,21 @@ stages:
         inlineScript: |
           az account show
 
-    - task: tfsec@1
+    - script: |
+        echo "Installing tfsec..."
+        curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+        echo "Running tfsec scan..."
+        tfsec ./environments/dev --out=results.json --format=json --no-color
       displayName: "Run tfsec security scan"
+      continueOnError: false
+
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish tfsec JSON report"
       inputs:
-        version: 'v1.26.0'
-        directory: 'environments/dev'
-        outputFormat: 'default'
-        additionalArgs: '--no-color'
-        debug: false
+        PathtoPublish: 'results.json'
+        ArtifactName: 'tfsec-results'
+        publishLocation: 'Container'
+
 
     # 4) terraform init  (remote backend)
     - task: TerraformTask@5
