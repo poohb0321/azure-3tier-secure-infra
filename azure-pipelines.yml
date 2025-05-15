@@ -40,7 +40,7 @@ stages:
         backendServiceArm: AzureSPN
         backendAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
         backendAzureRmResourceGroupName: 'rg-secure-infra'
-        backendAzureRmStorageAccountName: 'secureterraformstate'
+        backendAzureRmStorageAccountName: 'secureterraformstate123'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'dev.tfstate'
 
