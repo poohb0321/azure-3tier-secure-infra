@@ -1,10 +1,10 @@
-# azure-pipelines.yml  – root of repo
-# -------------------------------------------------
+# azure-pipelines.yml  ─ root of repo
+# =================================================
 trigger:
-- main                   # run on every push to main
+- main                    # run on each push to main
 
 variables:
-- group: backend-secrets # loads ARM_* env‑vars (client‑ID, secret, tenant, sub)
+- group: backend-secrets  # loads ARM_CLIENT_ID / SECRET / TENANT / SUB
 
 stages:
 # ───────────────────────────── Dev stage ─────────────────────────────
@@ -12,70 +12,81 @@ stages:
   displayName: "Deploy to Dev"
   jobs:
   - job: Terraform
-    displayName: "Terraform – Dev"
-    pool: mypool
+    displayName: "Terraform – Dev"
+    pool:
+      name: mypool         # <- change to vmImage: ubuntu-latest if you use MS-hosted agents
 
     steps:
-    # 1) Checkout code
+    # 1) Checkout repo
     - checkout: self
 
-    # 2) Azure CLI login (quick sanity‑check the service connection)
+    # 2) Quick Azure-CLI sanity check (via service connection)
     - task: AzureCLI@2
-      displayName: "Azure CLI login via SPN"
+      displayName: "Azure CLI login via SPN"
       inputs:
-        azureSubscription: AzureSPN    # ← service‑connection *exact* name
+        azureSubscription: AzureSPN
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: echo "Azure login OK"
 
-    # 3) (optional) tfsec scan
+    # 3) (optional) tfsec IaC scan
     - script: |
         curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
         tfsec environments/dev --no-color
       displayName: "tfsec scan"
 
-    # ─────────── Terraform tasks (official extension) ───────────
-    # 4) terraform init  (remote backend in new subscription)
+    # 4) terraform init  (remote backend)
     - task: TerraformTask@5
       displayName: "Terraform init"
       inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: 'AzureSPN'
+        provider: azurerm
+        command: init
+        workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+        backendServiceArm: AzureSPN
+        backendAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
         backendAzureRmResourceGroupName: 'rg-secure-infra'
         backendAzureRmStorageAccountName: 'secureterraformstate'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'dev.tfstate'
-        backendAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
 
     # 5) terraform validate
     - task: TerraformTask@5
       displayName: "Terraform validate"
       inputs:
-        provider: 'azurerm'
-        command: 'validate'
+        provider: azurerm
+        command: validate
         workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
 
     # 6) terraform plan
     - task: TerraformTask@5
       displayName: "Terraform plan"
       inputs:
-        provider: 'azurerm'
-        command: 'plan'
+        provider: azurerm
+        command: plan
         workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
-        environmentServiceNameAzureRM: 'AzureSPN'
+        environmentServiceNameAzureRM: AzureSPN
         environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
         commandOptions: '-out=tfplan'
 
-    # 7) terraform apply  (auto‑approve; remove flag for manual approval)
+    # 7) terraform apply  (auto-approve; remove flag for manual gate)
     - task: TerraformTask@5
       displayName: "Terraform apply"
       inputs:
-        provider: 'azurerm'
-        command: 'apply'
+        provider: azurerm
+        command: apply
         workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
-        environmentServiceNameAzureRM: 'AzureSPN'
+        environmentServiceNameAzureRM: AzureSPN
         environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
         commandOptions: '-auto-approve tfplan'
       env:
         TF_LOG: ERROR
+
+    # 8) (optional) run a post-deploy Bash script
+    - task: AzureCLI@2
+      displayName: "Post-deploy script"
+      inputs:
+        azureSubscription: AzureSPN
+        scriptType: bash
+        scriptLocation: scriptPath
+        scriptPath: scripts/deploy-terraform.sh
+        arguments: '-var environment=dev'
