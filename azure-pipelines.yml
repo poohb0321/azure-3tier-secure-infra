@@ -30,13 +30,25 @@ stages:
         inlineScript: |
           az account show
 
-    # 3) Install and run tfsec on Windows
+    # 3) Run tfsec and fail only on HIGH/CRITICAL issues
     - powershell: |
         Write-Host "Downloading tfsec..."
         Invoke-WebRequest -Uri "https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-windows-amd64.exe" -OutFile "$(Build.SourcesDirectory)\tfsec.exe"
+        
         Write-Host "Running tfsec scan..."
         & "$(Build.SourcesDirectory)\tfsec.exe" ./environments/dev --out=results.json --format=json --no-color
-      displayName: "Run tfsec security scan"
+
+        Write-Host "Parsing tfsec results..."
+        $results = Get-Content "$(Build.SourcesDirectory)\results.json" | ConvertFrom-Json
+        $failures = $results | Where-Object { $_.severity -eq "HIGH" -or $_.severity -eq "CRITICAL" }
+
+        if ($failures.Count -gt 0) {
+          Write-Error "tfsec found $($failures.Count) HIGH or CRITICAL issues. Failing build."
+          exit 1
+        } else {
+          Write-Host "tfsec completed with only LOW/MEDIUM issues. Passing build."
+        }
+      displayName: "Run tfsec scan (fail on HIGH/CRITICAL)"
       continueOnError: false
 
     # 4) Publish tfsec results
