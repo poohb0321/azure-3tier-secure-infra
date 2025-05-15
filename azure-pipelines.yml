@@ -14,7 +14,7 @@ stages:
   - job: Terraform
     displayName: "Terraform – Dev"
     pool:
-      name: mypool         # <- change to vmImage: ubuntu-latest if you use MS-hosted agents
+      vmImage: ubuntu-latest
 
     steps:
     # 1) Checkout repo
