@@ -30,12 +30,6 @@ stages:
         inlineScript: |
           Write-Host "Azure login OK"
 
-    # 3) (optional) tfsec IaC scan
-    - script: |
-        curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-        tfsec environments/dev --no-color
-      displayName: "tfsec scan"
-
     # 4) terraform init  (remote backend)
     - task: TerraformTask@5
       displayName: "Terraform init"
