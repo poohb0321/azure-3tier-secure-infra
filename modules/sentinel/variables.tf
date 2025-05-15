@@ -3,12 +3,12 @@ variable "workspace_name" {
   type        = string
 }
 
-variable "location" {
-  description = "Azure region"
+variable "resource_group" {
+  description = "Name of the Resource Group"
   type        = string
 }
 
-variable "resource_group" {
-  description = "Resource Group name"
+variable "location" {
+  description = "Azure region"
   type        = string
 }
