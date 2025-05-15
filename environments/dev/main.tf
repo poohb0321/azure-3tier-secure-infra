@@ -61,7 +61,7 @@ module "sentinel" {
 
 module "keyvault" {
   source          = "../../modules/keyvault"
-  name            = "kv-dev"
+  name            = "kv-dev-pooja-0321"
   location        = azurerm_resource_group.dev.location
   resource_group  = azurerm_resource_group.dev.name
   tenant_id       = "3547f3ce-b3af-40c6-bb98-3a1d7ee844bd"
