@@ -1,13 +1,12 @@
-# azure-pipelines.yml  ─ root of repo
+# azure-pipelines.yml — root of repo
 # =================================================
 trigger:
-- main                    # run on each push to main
+- main  # Run on push to main branch
 
 variables:
-- group: backend-secrets  # loads ARM_CLIENT_ID / SECRET / TENANT / SUB
+- group: backend-secrets  # ARM_CLIENT_ID / SECRET / TENANT / SUB
 
 stages:
-# ───────────────────────────── Dev stage ─────────────────────────────
 - stage: Dev
   displayName: "Deploy to Dev"
   jobs:
@@ -17,24 +16,24 @@ stages:
       name: mypool
 
     steps:
-    # 1) Checkout repo
+    # 1) Checkout code
     - checkout: self
 
-    # 2) Quick Azure-CLI sanity check (via service connection)
+    # 2) Azure CLI sanity check
     - task: AzureCLI@2
       displayName: "Azure CLI login via SPN"
       inputs:
         azureSubscription: AzureSPN
-        scriptType: ps         # or use 'ps'
+        scriptType: ps
         scriptLocation: inlineScript
         inlineScript: |
           az account show
 
-    # 3) Run tfsec and fail only on HIGH/CRITICAL issues
+    # 3) Run tfsec and fail on HIGH/CRITICAL
     - powershell: |
         Write-Host "Downloading tfsec..."
         Invoke-WebRequest -Uri "https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-windows-amd64.exe" -OutFile "$(Build.SourcesDirectory)\tfsec.exe"
-        
+
         Write-Host "Running tfsec scan..."
         & "$(Build.SourcesDirectory)\tfsec.exe" ./environments/dev --out=results.json --format=json --no-color
 
@@ -47,7 +46,7 @@ stages:
           exit 1
         } else {
           Write-Host "✅ tfsec completed with only LOW/MEDIUM issues. Build will continue."
-          exit 0  # ✅ Explicitly mark as successful
+          exit 0
         }
       displayName: "Run tfsec scan (fail on HIGH/CRITICAL)"
       continueOnError: false
@@ -60,15 +59,14 @@ stages:
         ArtifactName: 'tfsec-results'
         publishLocation: 'Container'
 
-
-    # 4a) terraform init with upgrade (for provider fixes)
+    # 5) Terraform init with upgrade
     - script: terraform init -upgrade
       workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
       displayName: "Terraform init with upgrade (provider refresh)"
 
-    # 4b) terraform init (remote backend setup)
+    # 6) Terraform init (with backend)
     - task: TerraformTask@5
-      displayName: "Terraform init"
+      displayName: "Terraform init with backend"
       inputs:
         provider: azurerm
         command: init
@@ -81,7 +79,14 @@ stages:
         backendAzureRmKey: 'dev.tfstate'
         commandOptions: '-upgrade -reconfigure'
 
-    # 5) terraform validate
+    # 7) Show provider and Terraform versions (debug)
+    - script: |
+        terraform version
+        terraform providers
+      workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
+      displayName: "Terraform version & providers"
+
+    # 8) Terraform validate
     - task: TerraformTask@5
       displayName: "Terraform validate"
       inputs:
@@ -89,7 +94,7 @@ stages:
         command: validate
         workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
 
-    # 6) terraform plan
+    # 9) Terraform plan
     - task: TerraformTask@5
       displayName: "Terraform plan"
       inputs:
@@ -102,7 +107,7 @@ stages:
       env:
         TF_LOG: INFO
 
-    # 7) terraform apply  (auto-approve; remove flag for manual gate)
+    # 10) Terraform apply
     - task: TerraformTask@5
       displayName: "Terraform apply"
       inputs:
@@ -114,6 +119,3 @@ stages:
         commandOptions: '-auto-approve tfplan'
       env:
         TF_LOG: ERROR
-
-
-
