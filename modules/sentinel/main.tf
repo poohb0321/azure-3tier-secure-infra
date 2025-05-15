@@ -6,7 +6,14 @@ resource "azurerm_log_analytics_workspace" "law" {
   retention_in_days   = 30
 }
 
+resource "azurerm_sentinel_onboarding" "onboard" {
+  name                       = "default"
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
+}
+
 resource "azurerm_sentinel_alert_rule_scheduled" "suspicious_login" {
+  depends_on = [azurerm_sentinel_onboarding.onboard]
+
   name                       = "SuspiciousLogin"
   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
   display_name               = "Suspicious Login from Unfamiliar Location"
