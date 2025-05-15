@@ -30,6 +30,15 @@ stages:
         inlineScript: |
           az account show
 
+    - task: tfsec@1
+      displayName: "Run tfsec security scan"
+      inputs:
+        version: 'v1.26.0'
+        directory: 'environments/dev'
+        outputFormat: 'default'
+        additionalArgs: '--no-color'
+        debug: false
+
     # 4) terraform init  (remote backend)
     - task: TerraformTask@5
       displayName: "Terraform init"
