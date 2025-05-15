@@ -14,7 +14,7 @@ terraform {
 
   backend "azurerm" {
     resource_group_name   = "rg-secure-infra"
-    storage_account_name  = "secureterraformstate"
+    storage_account_name  = "secureterraformstate123"
     container_name        = "tfstate"
     key                   = "dev.tfstate"
   }
