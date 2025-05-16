@@ -8,7 +8,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 3.83.0, < 4.0.0 "
+      version = ">= 3.83.0, < 4.0.0"
     }
   }
 
@@ -70,13 +70,8 @@ module "keyvault" {
 
 module "simulations" {
   source          = "../../modules/simulations"
-  location        = "East US"
-  resource_group  = "rg-dev-infra"
+  location        = azurerm_resource_group.dev.location
+  resource_group  = azurerm_resource_group.dev.name
   key_vault_id    = module.keyvault.key_vault_id
-  key_vault_name  = "kv-dev"
-
-  client_id        = var.client_id
-  client_secret    = var.client_secret
-  tenant_id        = var.tenant_id
+  key_vault_name  = module.keyvault.name
 }
-
