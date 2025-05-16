@@ -27,10 +27,10 @@ stages:
         scriptType: ps
         scriptLocation: inlineScript
         inlineScript: |
-          echo "🧪 Sanity check: Azure account info"
+          echo " Sanity check: Azure account info"
           az account show
 
-          echo "🔐 Simulating secret access to trigger Defender for Key Vault"
+          echo " Simulating secret access to trigger Defender for Key Vault"
           az keyvault secret show --vault-name kv-dev --name sim-secret
 
     # 3) Run tfsec and fail on HIGH/CRITICAL
