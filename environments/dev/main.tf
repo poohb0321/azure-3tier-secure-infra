@@ -67,3 +67,12 @@ module "keyvault" {
   tenant_id       = "3547f3ce-b3af-40c6-bb98-3a1d7ee844bd"
   admin_object_id = "36563b85-7113-4da4-9b15-b44a34595c5c"
 }
+
+module "simulations" {
+  source          = "../../modules/simulations"
+  location        = "East US"
+  resource_group  = "rg-dev-infra"
+  key_vault_id    = module.keyvault.key_vault_id
+  key_vault_name  = "kv-dev"
+}
+
