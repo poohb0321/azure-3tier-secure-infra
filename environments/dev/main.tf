@@ -73,5 +73,5 @@ module "simulations" {
   location        = azurerm_resource_group.dev.location
   resource_group  = azurerm_resource_group.dev.name
   key_vault_id    = module.keyvault.key_vault_id
-  key_vault_name  = module.keyvault.name
+  key_vault_name  = module.keyvault.key_vault_name
 }
