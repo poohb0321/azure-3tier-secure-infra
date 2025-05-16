@@ -17,19 +17,3 @@ variable "key_vault_name" {
   description = "Key Vault name"
   type        = string
 }
-
-variable "client_id" {
-  description = "Service principal client ID"
-  type        = string
-}
-
-variable "client_secret" {
-  description = "Service principal client secret"
-  type        = string
-  sensitive   = true
-}
-
-variable "tenant_id" {
-  description = "Azure tenant ID"
-  type        = string
-}

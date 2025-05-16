@@ -13,7 +13,7 @@ resource "azurerm_key_vault_secret" "sim_secret" {
 resource "null_resource" "simulate_secret_access" {
   provisioner "local-exec" {
     command = <<EOT
-      echo "🔐 Simulating Key Vault secret access..."
+      echo " Simulating Key Vault secret access..."
       az keyvault secret show --vault-name ${var.key_vault_name} --name sim-secret
 EOT
   }
