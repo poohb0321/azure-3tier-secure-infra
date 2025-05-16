@@ -74,5 +74,9 @@ module "simulations" {
   resource_group  = "rg-dev-infra"
   key_vault_id    = module.keyvault.key_vault_id
   key_vault_name  = "kv-dev"
+
+  client_id        = var.client_id
+  client_secret    = var.client_secret
+  tenant_id        = var.tenant_id
 }
 
