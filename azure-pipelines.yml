@@ -30,6 +30,9 @@ stages:
           Write-Host "🔍 Sanity check: Azure account info"
           az account show
 
+          Write-Host "⏳ Waiting 20s before Key Vault access..."
+          Start-Sleep -Seconds 20
+
           Write-Host "🔐 Simulating secret access to trigger Defender for Key Vault"
           az keyvault secret show --vault-name kv-dev-pooja-0321 --name sim-secret
 
