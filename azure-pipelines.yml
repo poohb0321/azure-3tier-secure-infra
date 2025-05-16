@@ -19,15 +19,19 @@ stages:
     # 1) Checkout code
     - checkout: self
 
-    # 2) Azure CLI sanity check
+    # 2) Azure CLI sanity check and Key Vault access simulation
     - task: AzureCLI@2
-      displayName: "Azure CLI login via SPN"
+      displayName: "Azure CLI login + simulate Key Vault access"
       inputs:
         azureSubscription: AzureSPN
         scriptType: ps
         scriptLocation: inlineScript
         inlineScript: |
+          echo "🧪 Sanity check: Azure account info"
           az account show
+
+          echo "🔐 Simulating secret access to trigger Defender for Key Vault"
+          az keyvault secret show --vault-name kv-dev --name sim-secret
 
     # 3) Run tfsec and fail on HIGH/CRITICAL
     - powershell: |
