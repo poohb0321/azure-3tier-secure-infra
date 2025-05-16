@@ -30,11 +30,7 @@ stages:
           Write-Host "🔍 Sanity check: Azure account info"
           az account show
 
-          Write-Host "⏳ Waiting 20s before Key Vault access..."
-          Start-Sleep -Seconds 20
-
-          Write-Host "🔐 Simulating Key Vault access using 'az keyvault show'"
-          az keyvault show --name kv-dev-pooja-0321
+          Write-Host "✅ Azure login successful. Skipping Key Vault due to private endpoint/DNS limitations."
 
     # 3) Run tfsec and fail on HIGH/CRITICAL
     - powershell: |
