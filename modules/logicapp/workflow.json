@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "String",
+      "defaultValue": "East US"
+    },
+    "$connections": {
+      "type": "Object",
+      "defaultValue": {
+        "office365": {
+          "connectionId": "/subscriptions/0a7eb3ba-cd21-4466-91fd-04134b38423f/resourceGroups/rg-prod-infra/providers/Microsoft.Web/connections/office365",
+          "connectionName": "office365",
+          "id": "/subscriptions/0a7eb3ba-cd21-4466-91fd-04134b38423f/providers/Microsoft.Web/locations/eastus/managedApis/office365"
+        }
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Logic/workflows",
+      "apiVersion": "2019-05-01",
+      "name": "[concat(parameters('location'), '-logicapp')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "Send_an_email": {
+              "inputs": {
+                "body": {
+                  "Content": "Alert received: @{triggerBody()?['name']}",
+                  "Subject": "🚨 Sentinel Alert Triggered",
+                  "To": "security-team@yourcompany.com"
+                },
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['office365']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "path": "/v2/Mail"
+              },
+              "runAfter": {},
+              "type": "ApiConnection"
+            }
+          },
+          "triggers": {
+            "When_a_HTTP_request_is_received": {
+              "inputs": {},
+              "metadata": {},
+              "type": "Request"
+            }
+          },
+          "outputs": {}
+        },
+        "parameters": {
+          "$connections": {
+            "value": "[parameters('$connections')]"
+          }
+        }
+      }
+    }
+  ]
+}
