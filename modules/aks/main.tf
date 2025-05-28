@@ -7,7 +7,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name       = "systempool"
     node_count = 1
-    vm_size    = "Standard_DS2_v2"
+    vm_size    = "Standard_D4s_v3"
   }
 
   identity {
@@ -17,7 +17,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   oidc_issuer_enabled          = true
   workload_identity_enabled    = true
 
-  kubernetes_version = "1.27.0"
+  kubernetes_version = "1.32.4"
   sku_tier           = "Free"
 }
 

@@ -53,7 +53,12 @@
               "type": "Request"
             }
           },
-          "outputs": {}
+          "outputs": {},
+          "parameters": {
+            "$connections": {
+              "type": "Object"
+            }
+          }
         },
         "parameters": {
           "$connections": {

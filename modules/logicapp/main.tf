@@ -9,5 +9,14 @@ resource "azurerm_resource_group_template_deployment" "logicapp" {
     location = {
       value = var.location
     }
+    "$connections" = {
+      value = {
+        office365 = {
+          connectionId   = "/subscriptions/0a7eb3ba-cd21-4466-91fd-04134b38423f/resourceGroups/rg-prod-infra/providers/Microsoft.Web/connections/office365"
+          connectionName = "office365"
+          id             = "/subscriptions/0a7eb3ba-cd21-4466-91fd-04134b38423f/providers/Microsoft.Web/locations/eastus/managedApis/office365"
+        }
+      }
+    }
   })
 }

@@ -1,5 +1,12 @@
+resource "random_string" "suffix" {
+  length  = 6
+  upper   = false
+  number  = true
+  special = false
+}
+
 resource "azurerm_key_vault" "main" {
-  name                            = var.name
+  name                            = "${var.name_prefix}-kv-${random_string.suffix.result}" 
   location                        = var.location
   resource_group_name             = var.resource_group
   tenant_id                       = var.tenant_id

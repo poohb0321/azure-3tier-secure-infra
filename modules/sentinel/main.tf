@@ -28,12 +28,13 @@ SigninLogs
 QUERY
 }
 
-resource "azurerm_sentinel_data_connector_azure_active_directory" "aad" {
-  depends_on                 = [azurerm_sentinel_log_analytics_workspace_onboarding.sentinel]
-  name                       = "AADConnector"
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
-  tenant_id                  = var.azure_tenant_id
-}
+# 🔻 Removed: AAD connector (replaced by Microsoft Entra ID solution)
+# resource "azurerm_sentinel_data_connector_azure_active_directory" "aad" {
+#   depends_on                 = [azurerm_sentinel_log_analytics_workspace_onboarding.sentinel]
+#   name                       = "AADConnector"
+#   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
+#   tenant_id                  = var.azure_tenant_id
+# }
 
 resource "azurerm_sentinel_data_connector_azure_security_center" "defender" {
   depends_on                 = [azurerm_sentinel_log_analytics_workspace_onboarding.sentinel]

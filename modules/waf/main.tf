@@ -11,7 +11,7 @@ resource "azurerm_application_gateway" "waf" {
 
   gateway_ip_configuration {
     name      = "appGatewayIpConfig"
-    subnet_id = var.subnet_id
+    subnet_id = "/subscriptions/0a7eb3ba-cd21-4466-91fd-04134b38423f/resourceGroups/rg-prod-infra/providers/Microsoft.Network/virtualNetworks/prod-vnet/subnets/appgw-subnet"
   }
 
   frontend_port {
