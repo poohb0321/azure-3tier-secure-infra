@@ -1,0 +1,9 @@
+{
+  "if": {
+    "field": "sku.name",
+    "equals": "Basic"
+  },
+  "then": {
+    "effect": "deny"
+  }
+}

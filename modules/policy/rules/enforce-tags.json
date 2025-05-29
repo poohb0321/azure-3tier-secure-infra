@@ -1,0 +1,11 @@
+{
+  "if": {
+    "not": {
+      "field": "tags['env']",
+      "equals": "prod"
+    }
+  },
+  "then": {
+    "effect": "deny"
+  }
+}

@@ -28,6 +28,7 @@
           "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
           "actions": {
             "Send_an_email": {
+              "type": "ApiConnection",
               "inputs": {
                 "body": {
                   "Content": "Alert received: @{triggerBody()?['name']}",
@@ -42,15 +43,29 @@
                 "method": "post",
                 "path": "/v2/Mail"
               },
-              "runAfter": {},
-              "type": "ApiConnection"
+              "runAfter": {}
+            },
+            "Send_Teams_Message": {
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "<YOUR_TEAMS_WEBHOOK_URL>",
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "title": "🚨 Azure Sentinel Alert",
+                  "text": "An alert has been triggered: @{triggerBody()?['name']}"
+                }
+              },
+              "runAfter": {}
             }
           },
           "triggers": {
             "When_a_HTTP_request_is_received": {
+              "type": "Request",
               "inputs": {},
-              "metadata": {},
-              "type": "Request"
+              "metadata": {}
             }
           },
           "outputs": {},

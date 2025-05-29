@@ -23,3 +23,19 @@ variable "azure_subscription_id" {
   type        = string
   default     = ""
 }
+
+variable "workspace_id" {
+  description = "Sentinel Log Analytics Workspace ID"
+  type        = string
+}
+
+variable "logic_app_id" {
+  description = "Logic App resource ID"
+  type        = string
+}
+
+variable "logic_app_trigger_url" {
+  description = "HTTP trigger URL for the Logic App"
+  type        = string
+}
+

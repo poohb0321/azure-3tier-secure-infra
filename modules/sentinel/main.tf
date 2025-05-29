@@ -28,27 +28,6 @@ SigninLogs
 QUERY
 }
 
-# 🔻 Removed: AAD connector (replaced by Microsoft Entra ID solution)
-# resource "azurerm_sentinel_data_connector_azure_active_directory" "aad" {
-#   depends_on                 = [azurerm_sentinel_log_analytics_workspace_onboarding.sentinel]
-#   name                       = "AADConnector"
-#   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
-#   tenant_id                  = var.azure_tenant_id
-# }
-
-resource "azurerm_sentinel_data_connector_azure_security_center" "defender" {
-  depends_on                 = [azurerm_sentinel_log_analytics_workspace_onboarding.sentinel]
-  name                       = "DefenderConnector"
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
-}
-
-# Deprecated in newer provider versions – only re-enable if you're using an older version
-# resource "azurerm_sentinel_data_connector_azure_activity" "activity" {
-#   name                       = "AzureActivity"
-#   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
-#   subscription_id            = var.azure_subscription_id
-# }
-
 resource "azurerm_sentinel_alert_rule_scheduled" "kv_delete_alert" {
   depends_on                 = [azurerm_sentinel_log_analytics_workspace_onboarding.sentinel]
   name                       = "KeyVaultDeletion"
@@ -70,4 +49,10 @@ QUERY
   trigger_threshold         = 0
   tactics                   = ["Impact"]
   alert_rule_template_guid  = null
+}
+
+resource "azurerm_sentinel_data_connector_azure_security_center" "defender" {
+  depends_on                 = [azurerm_sentinel_log_analytics_workspace_onboarding.sentinel]
+  name                       = "DefenderConnector"
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
 }

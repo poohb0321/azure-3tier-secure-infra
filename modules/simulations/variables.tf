@@ -17,3 +17,23 @@ variable "key_vault_name" {
   description = "Key Vault name"
   type        = string
 }
+
+variable "resource_group" {
+  description = "Resource group to deploy the VM"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure region"
+  type        = string
+}
+
+variable "subnet_id" {
+  description = "Subnet ID for the VM"
+  type        = string
+}
+
+variable "name_prefix" {
+  description = "Prefix to append to resource names"
+  type        = string
+}

@@ -1,0 +1,9 @@
+{
+  "if": {
+    "field": "Microsoft.Storage/storageAccounts/encryption.services.blob.enabled",
+    "equals": "false"
+  },
+  "then": {
+    "effect": "deny"
+  }
+}

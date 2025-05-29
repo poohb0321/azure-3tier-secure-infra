@@ -1,75 +1,85 @@
-# azure-pipelines.yml — root of repo
-# =================================================
 trigger:
-- main  # Run on push to main branch
+- main
 
 variables:
-- group: backend-secrets  # ARM_CLIENT_ID / SECRET / TENANT / SUB
+- group: backend-secrets
 
 stages:
 - stage: Dev
   displayName: "Deploy to Dev"
   jobs:
-  - job: Terraform
+  - job: TerraformDev
     displayName: "Terraform – Dev"
     pool:
       name: mypool
 
     steps:
-    # 1) Checkout code
     - checkout: self
 
-    # 2) Azure CLI sanity check and Key Vault access simulation
     - task: AzureCLI@2
-      displayName: "Azure CLI login + simulate Key Vault access"
+      displayName: "Azure CLI login check"
       inputs:
         azureSubscription: AzureSPN
         scriptType: ps
         scriptLocation: inlineScript
         inlineScript: |
-          Write-Host "🔍 Sanity check: Azure account info"
+          Write-Host "🔐 Logged in Azure CLI account:"
           az account show
 
-          Write-Host "✅ Azure login successful. Skipping Key Vault due to private endpoint/DNS limitations."
-
-    # 3) Run tfsec and fail on HIGH/CRITICAL
+    # ✅ tfsec security scan step
     - powershell: |
-        Write-Host "Downloading tfsec..."
+        Write-Host "📥 Downloading tfsec..."
         Invoke-WebRequest -Uri "https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-windows-amd64.exe" -OutFile "$(Build.SourcesDirectory)\tfsec.exe"
-
-        Write-Host "Running tfsec scan..."
+        Write-Host "🔍 Running tfsec scan..."
         & "$(Build.SourcesDirectory)\tfsec.exe" ./environments/dev --out=results.json --format=json --no-color
-
-        Write-Host "Parsing tfsec results..."
         $results = Get-Content "$(Build.SourcesDirectory)\results.json" | ConvertFrom-Json
         $failures = $results | Where-Object { $_.severity -eq "HIGH" -or $_.severity -eq "CRITICAL" }
-
         if ($failures.Count -gt 0) {
-          Write-Error "tfsec found $($failures.Count) HIGH or CRITICAL issues. Failing build."
+          Write-Error "❌ tfsec found $($failures.Count) HIGH or CRITICAL issues. Failing build."
           exit 1
         } else {
-          Write-Host "✅ tfsec completed with only LOW/MEDIUM issues. Build will continue."
-          exit 0
+          Write-Host "✅ tfsec passed. No critical risks."
         }
-      displayName: "Run tfsec scan (fail on HIGH/CRITICAL)"
-      continueOnError: false
+      displayName: "Run tfsec and fail on HIGH/CRITICAL"
 
-    # 4) Publish tfsec results
+    - script: |
+        echo "📥 Installing Checkov..."
+        pip install checkov
+        echo "🔍 Running Checkov scan..."
+        checkov -d ./environments/dev --output json --output-file-path results-checkov.json
+        $results = Get-Content "results-checkov.json" | ConvertFrom-Json
+        $highFindings = $results.results.failed_checks | Where-Object { $_.severity -eq "HIGH" -or $_.severity -eq "CRITICAL" }
+        if ($highFindings.Count -gt 0) {
+          Write-Error "❌ Checkov found $($highFindings.Count) HIGH or CRITICAL issues. Failing build."
+          exit 1
+        } else {
+          Write-Host "✅ Checkov passed. No critical risks."
+        }
+      displayName: "Run Checkov and fail on HIGH/CRITICAL"
+      shell: pwsh
+
     - task: PublishBuildArtifacts@1
-      displayName: "Publish tfsec JSON report"
+      displayName: "Upload Checkov results"
+      inputs:
+        PathtoPublish: 'results-checkov.json'
+        ArtifactName: 'checkov-results'
+        publishLocation: 'Container'
+
+
+
+    - task: PublishBuildArtifacts@1
+      displayName: "Upload tfsec results"
       inputs:
         PathtoPublish: 'results.json'
         ArtifactName: 'tfsec-results'
         publishLocation: 'Container'
 
-    # 5) Terraform init with upgrade
     - script: terraform init -upgrade
       workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
-      displayName: "Terraform init with upgrade (provider refresh)"
+      displayName: "Terraform init (refresh providers)"
 
-    # 6) Terraform init (with backend)
     - task: TerraformTask@5
-      displayName: "Terraform init with backend"
+      displayName: "Terraform backend init"
       inputs:
         provider: azurerm
         command: init
@@ -82,14 +92,12 @@ stages:
         backendAzureRmKey: 'dev.tfstate'
         commandOptions: '-upgrade -reconfigure'
 
-    # 7) Show provider and Terraform versions (debug)
     - script: |
         terraform version
         terraform providers
       workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
-      displayName: "Terraform version & providers"
+      displayName: "Terraform versions"
 
-    # 8) Terraform validate
     - task: TerraformTask@5
       displayName: "Terraform validate"
       inputs:
@@ -97,7 +105,6 @@ stages:
         command: validate
         workingDirectory: '$(System.DefaultWorkingDirectory)/environments/dev'
 
-    # 9) Terraform plan
     - task: TerraformTask@5
       displayName: "Terraform plan"
       inputs:
@@ -107,10 +114,7 @@ stages:
         environmentServiceNameAzureRM: AzureSPN
         environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
         commandOptions: '-out=tfplan -detailed-exitcode -lock=false'
-      env:
-        TF_LOG: INFO
 
-    # 10) Terraform apply
     - task: TerraformTask@5
       displayName: "Terraform apply"
       inputs:
@@ -120,5 +124,61 @@ stages:
         environmentServiceNameAzureRM: AzureSPN
         environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
         commandOptions: '-auto-approve tfplan'
-      env:
-        TF_LOG: ERROR
+
+- stage: Prod
+  displayName: "Deploy to Prod"
+  dependsOn: Dev
+  condition: succeeded()
+  jobs:
+  - job: TerraformProd
+    displayName: "Terraform – Prod"
+    pool:
+      name: mypool
+
+    steps:
+    - checkout: self
+
+    - script: terraform init -upgrade
+      workingDirectory: '$(System.DefaultWorkingDirectory)/environments/prod'
+      displayName: "Terraform init (prod)"
+
+    - task: TerraformTask@5
+      displayName: "Terraform backend init (prod)"
+      inputs:
+        provider: azurerm
+        command: init
+        workingDirectory: '$(System.DefaultWorkingDirectory)/environments/prod'
+        backendServiceArm: AzureSPN
+        backendAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
+        backendAzureRmResourceGroupName: 'rg-prod-infra'
+        backendAzureRmStorageAccountName: 'secureterraformstate123'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'prod.tfstate'
+        commandOptions: '-upgrade -reconfigure'
+
+    - task: TerraformTask@5
+      displayName: "Terraform validate (prod)"
+      inputs:
+        provider: azurerm
+        command: validate
+        workingDirectory: '$(System.DefaultWorkingDirectory)/environments/prod'
+
+    - task: TerraformTask@5
+      displayName: "Terraform plan (prod)"
+      inputs:
+        provider: azurerm
+        command: plan
+        workingDirectory: '$(System.DefaultWorkingDirectory)/environments/prod'
+        environmentServiceNameAzureRM: AzureSPN
+        environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
+        commandOptions: '-out=tfplan -detailed-exitcode -lock=false'
+
+    - task: TerraformTask@5
+      displayName: "Terraform apply (prod)"
+      inputs:
+        provider: azurerm
+        command: apply
+        workingDirectory: '$(System.DefaultWorkingDirectory)/environments/prod'
+        environmentServiceNameAzureRM: AzureSPN
+        environmentAzureRmSubscriptionId: '0a7eb3ba-cd21-4466-91fd-04134b38423f'
+        commandOptions: '-auto-approve tfplan'

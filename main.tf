@@ -39,3 +39,23 @@ module "security" {
   location       = azurerm_resource_group.infra.location
   resource_group = azurerm_resource_group.infra.name
 }
+
+module "custom_role" {
+  source = "./custom_role"
+}
+
+module "role_assignment" {
+  source       = "./role_assignment"
+  principal_id = var.principal_id
+}
+
+module "oidc" {
+  source            = "./oidc"
+  namespace         = var.namespace
+  service_account   = var.service_account
+  oidc_issuer_url   = var.oidc_issuer_url
+  identity_name     = var.identity_name
+  location          = var.location
+  resource_group    = var.resource_group
+}
+
