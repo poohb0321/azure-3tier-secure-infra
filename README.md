@@ -257,10 +257,10 @@ Implements **Azure Firewall** to enforce centralized outbound traffic control, e
 ---
 
 <p float="center">
-  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235929.png" width="450" alt="imag5">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20001020.png">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235929.png" width="450" alt="imag8">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20001020.png" width="450" alt="imag9">
 </p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000921.png" alt="imag4">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000921.png" width="450" alt="imag0">
 </p>
 
 
@@ -312,14 +312,14 @@ Deploys the **application layer** using **Azure Kubernetes Service (AKS)**, enab
 ---
 
 <p float="center">
-  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000121.png" alt="imag5">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000147.png">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000121.png" width="450" alt="imag12">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000147.png" width="450" alt="imag13">
 </p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000211.png">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000310.png">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000211.png" width="450" alt="imag14">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000310.png" width="450" alt="imag15">
 </p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000334.png">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000348.png">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000334.png" width="450" alt="imag16">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000348.png" width="450" alt="imag17">
 
 </p>
 
@@ -370,14 +370,14 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
 
 ---
 <p float="center">
-  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235958.png" alt="imag5">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/1.png">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235958.png" width="450" alt="imag21">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/1.png" width="450" alt="imag22">
 </p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/2.png">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/6.png">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/2.png" width="450" alt="imag23">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/6.png" width="450" alt="imag24">
 </p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/7.png">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/4.png">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/7.png" width="450" alt="imag25">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/4.png" width="450" alt="imag26">
 </p>
 </p>
 
