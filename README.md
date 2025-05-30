@@ -4,11 +4,6 @@ This project delivers a secure, scalable **3-tier cloud architecture** on Micros
 
 ---
 
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/40e5fbb057e2b7c639499882931225c34782f29e/images/Screenshot%202025-05-30%20130104.png" width="500" align="centre">
-
-
----
-
 ### 🧩 3-Tier Model
 
 - **Web Tier**:
@@ -87,7 +82,14 @@ This architecture is built to be **highly secure**, **modular**, and **productio
 └── azure-pipelines.yml
 ``` 
 
+---
 
+<p align="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/af432222509b8932dd8e1ef3d7cbb9761b5656cf/images/Screenshot%202025-05-30%20130104.png" width="450" alt="folder structure">
+</p>
+
+
+---
 # ⚙️ Terraform Modules – Detailed Implementation
 
 This document explains the purpose, functionality, and security considerations for each Terraform module used in the 3-Tier Secure Azure Architecture project.
