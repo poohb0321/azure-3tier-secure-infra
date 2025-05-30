@@ -82,7 +82,9 @@ This architecture is built to be **highly secure**, **modular**, and **productio
 │   └── policy/
 └── azure-pipelines.yml
 
-![alt text](<Screenshot 2025-05-30 130104-1.png>)
+<img src="../images/Screenshot 2025-05-30 130104.png"
+     alt="GCP_IaaS_PaaS_FaaS.png"
+     style="float: left; margin-right: 10px;" />
 
 # ⚙️ Terraform Modules – Detailed Implementation
 
