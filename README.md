@@ -58,7 +58,9 @@ This project delivers a secure, scalable **3-tier cloud architecture** on Micros
 ---
 
 This architecture is built to be **highly secure**, **modular**, and **production-grade**, supporting modern DevSecOps practices and ready for enterprise deployment.
-
+<img src="../images/Screenshot 2025-05-30 130104.png"
+     alt="GCP_IaaS_PaaS_FaaS.png"
+     style="float: left; margin-right: 10px;" />
 
 
 ## 📂 Folder Structure
@@ -82,9 +84,6 @@ This architecture is built to be **highly secure**, **modular**, and **productio
 │   └── policy/
 └── azure-pipelines.yml
 
-<img src="../images/Screenshot 2025-05-30 130104.png"
-     alt="GCP_IaaS_PaaS_FaaS.png"
-     style="float: left; margin-right: 10px;" />
 
 # ⚙️ Terraform Modules – Detailed Implementation
 
