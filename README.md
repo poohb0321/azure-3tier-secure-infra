@@ -83,6 +83,7 @@ This architecture is built to be **highly secure**, **modular**, and **productio
 │   ├── logicapp/
 │   └── policy/
 └── azure-pipelines.yml
+``` 
 
 
 # ⚙️ Terraform Modules – Detailed Implementation
@@ -616,41 +617,4 @@ This document outlines the Azure DevOps CI/CD pipeline configured for secure, au
 
 ```bash
 azure-pipelines.yml  # Root of the repository
-
-
-This project uses an automated CI/CD pipeline configured in **Azure DevOps** to provision secure infrastructure using Terraform. The pipeline ensures both **deployment efficiency** and **security validation** through multiple stages.
-
-- **Trigger**: The pipeline is triggered automatically on every push to the `main` branch, ensuring continuous integration and consistent deployments.
-
-- **Security Scan**: 
-  - Integrated **`tfsec`** scan acts as a **security gate**, checking Terraform code for misconfigurations before applying changes.
-  - If critical issues are found, the pipeline will fail and block deployment, enforcing secure-by-default principles.
-
-- **Pipeline Stages**:
-  1. **Terraform Plan & Apply (Dev and Prod)**:
-     - Initializes the Terraform backend
-     - Plans infrastructure changes
-     - Applies modular code across environments (`dev`, `prod`)
-     - Manages state in secure Azure Storage
-
-  2. **Azure CLI Login**:
-     - Authenticates with Azure using a DevOps service connection
-     - Grants permissions to manage resources, query secrets, and simulate access
-
-  3. **Key Vault Access Simulation**:
-     - Validates access to Azure Key Vault using Azure CLI
-     - Ensures the pipeline identity has correct RBAC permissions
-
-  4. **Sentinel Alert Testing**:
-     - Simulates real-world threats (e.g., Key Vault deletion)
-     - Validates that Microsoft Sentinel detects and raises incidents
-     - Triggers a **Logic App** for automated email alerting or remediation
-
-This pipeline provides a secure, repeatable, and auditable mechanism for deploying and monitoring cloud infrastructure, aligning with DevSecOps best practices.
-
-# 🔐 Security Tools & Features – Detailed Documentation
-
-This document describes all the security tools and services integrated into the 3-Tier Secure Azure Architecture project. These services help enforce best practices, prevent misconfigurations, detect threats, and automate responses.
-
----
 
