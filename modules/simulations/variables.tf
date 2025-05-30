@@ -37,3 +37,7 @@ variable "name_prefix" {
   description = "Prefix to append to resource names"
   type        = string
 }
+
+variable "principal_id" {
+  type = string
+}

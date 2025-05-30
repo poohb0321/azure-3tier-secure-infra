@@ -18,3 +18,7 @@ variable "azure_client_id" {
 variable "azure_client_secret" {
   type = string
 }
+
+variable "oidc_issuer_url" {
+  type = string
+}

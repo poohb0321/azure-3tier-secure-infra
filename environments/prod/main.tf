@@ -3,7 +3,6 @@ provider "azurerm" {
   client_id       = var.azure_client_id
   client_secret   = var.azure_client_secret
   tenant_id       = var.azure_tenant_id
-
   features {}
 }
 
@@ -29,14 +28,15 @@ terraform {
     key                   = "prod.tfstate"
   }
 }
+
 data "azurerm_client_config" "current" {}
 
 module "coreinfra" {
-  source                  = "../../modules/coreinfra"
-  resource_group_name     = "rg-prod-infra"
-  location                = "eastus"
-  name_prefix             = "prod"
-  private_dns_zone_names  = [
+  source                 = "../../modules/coreinfra"
+  resource_group_name    = "rg-prod-infra"
+  location               = "eastus"
+  name_prefix            = "prod"
+  private_dns_zone_names = [
     "privatelink.vaultcore.azure.net",
     "privatelink.blob.core.windows.net",
     "privatelink.database.windows.net"
@@ -44,17 +44,14 @@ module "coreinfra" {
 }
 
 module "networking" {
-  source          = "../../modules/networking"
-  vnet_name       = "secure-vnet"
-  location        = "eastus"
-  resource_group  = "rg-prod-infra"
-
-  address_space   = ["10.1.0.0/16"]
-  subnet_names    = ["web-tier", "app-tier", "db-tier", "AzureFirewallSubnet"]
-  subnet_prefixes = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24", "10.1.4.0/24"]
-
-  name_prefix     = "prod"
-
+  source                = "../../modules/networking"
+  vnet_name             = "secure-vnet"
+  location              = "eastus"
+  resource_group        = "rg-prod-infra"
+  address_space         = ["10.1.0.0/16"]
+  subnet_names          = ["web-tier", "app-tier", "db-tier", "AzureFirewallSubnet"]
+  subnet_prefixes       = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24", "10.1.4.0/24"]
+  name_prefix           = "prod"
   private_dns_zone_names = [
     "privatelink.blob.core.windows.net",
     "privatelink.database.windows.net",
@@ -63,12 +60,12 @@ module "networking" {
 }
 
 module "keyvault" {
-  source              = "../../modules/keyvault"
-  name_prefix         = "prod"
-  location            = "eastus"
-  resource_group      = "rg-prod-infra"
-  tenant_id           = var.azure_tenant_id
-  admin_object_id     = data.azurerm_client_config.current.object_id
+  source          = "../../modules/keyvault"
+  name_prefix     = "prod"
+  location        = "eastus"
+  resource_group  = "rg-prod-infra"
+  tenant_id       = var.azure_tenant_id
+  admin_object_id = data.azurerm_client_config.current.object_id
 }
 
 module "waf" {
@@ -81,29 +78,16 @@ module "waf" {
 }
 
 module "aks" {
-  source         = "../../modules/aks"
-  name_prefix    = "prod"
-  location       = module.coreinfra.location
-  resource_group = module.coreinfra.resource_group_name
+  source            = "../../modules/aks"
+  name_prefix       = "prod"
+  location          = module.coreinfra.location
+  resource_group    = module.coreinfra.resource_group_name
+  identity_name     = "prod-identity"
+  service_account   = "prod-sa"
+  oidc_issuer_url   = "" # replace with actual output from AKS module
 }
 
-module "iam" {
-  source = "../../modules/iam"
 
-  assignments = {
-    aks_reader = {
-      principal_id = module.aks.client_id
-      role         = "Reader"
-      scope        = module.aks.aks_id
-    }
-
-    aks_kv = {
-      principal_id = module.aks.client_id
-      role         = "Key Vault Secrets User"
-      scope        = module.keyvault.key_vault_id
-    }
-  }
-}
 
 module "firewall" {
   source                = "../../modules/firewall"
@@ -114,18 +98,7 @@ module "firewall" {
   subnet_ids_to_protect = [module.networking.subnet_ids[1]] # app-tier
 }
 
-module "sentinel" {
-  source           = "../../modules/sentinel"
-  location         = module.coreinfra.location
-  resource_group   = module.coreinfra.resource_group_name
-  workspace_name   = "law-prod"
-  azure_tenant_id  = var.azure_tenant_id
 
-  depends_on = [
-    module.coreinfra
-    # azurerm_sentinel_log_analytics_workspace_onboarding.sentinel # Uncomment only if you define this resource
-  ]
-}
 
 module "defender" {
   source           = "../../modules/defender"
@@ -138,8 +111,54 @@ module "defender" {
 }
 
 module "logicapp" {
-  source         = "../../modules/logicapp"
-  name_prefix    = "prod"
-  location       = module.coreinfra.location
-  resource_group = module.coreinfra.resource_group_name
+  source                = "../../modules/logicapp"
+  name_prefix           = "prod"
+  location              = module.coreinfra.location
+  resource_group        = module.coreinfra.resource_group_name
+  logic_app_id          = "12ca8a72-eb2a-4154-9a76-7d39d1f20f7f"          # Replace with actual logic app ID or output
+  logic_app_trigger_url = ""         # Replace with actual trigger URL
+  workspace_id          = module.sentinel.workspace_id       # Make sure sentinel module exports this
 }
+
+module "simulations" {
+  source            = "../../modules/simulations"
+  name_prefix       = "prod"
+  location          = module.coreinfra.location
+  resource_group    = module.coreinfra.resource_group_name
+  subnet_id         = module.networking.subnet_ids[1] # app-tier
+  key_vault_id      = module.keyvault.key_vault_id
+  principal_id      = module.aks.client_id
+  key_vault_name    = module.keyvault.name
+}
+
+module "sentinel" {
+  source          = "../../modules/sentinel"
+  location        = module.coreinfra.location
+  resource_group  = module.coreinfra.resource_group_name
+  workspace_name  = "law-prod"
+  azure_tenant_id = var.azure_tenant_id
+  logic_app_id = module.logicapp.logic_app_id
+  logic_app_trigger_url = module.logicapp.logic_app_trigger_url
+  workspace_id = azurerm_log_analytics_workspace.law.id
+
+  depends_on = [module.coreinfra]
+}
+
+
+
+module "iam" {
+  source = "../../modules/iam"
+
+  identity_name   = "prod-identity"
+  location        = module.coreinfra.location
+  resource_group  = module.coreinfra.resource_group_name
+  oidc_issuer_url = module.aks.oidc_issuer_url
+  namespace       = "default"
+  service_account = "prod-sa"
+  key_vault_id    = module.keyvault.key_vault_id
+  principal_id    = module.aks.client_id
+  scope           = module.aks.aks_id
+}
+
+
+
