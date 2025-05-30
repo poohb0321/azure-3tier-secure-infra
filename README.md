@@ -4,7 +4,7 @@ This project delivers a secure, scalable **3-tier cloud architecture** on Micros
 
 ---
 
-![img 1]<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/40e5fbb057e2b7c639499882931225c34782f29e/images/Screenshot%202025-05-30%20130104.png" width="450" align="left">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/40e5fbb057e2b7c639499882931225c34782f29e/images/Screenshot%202025-05-30%20130104.png" width="600" align="centre">
 
 
 ---
