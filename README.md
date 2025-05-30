@@ -208,7 +208,6 @@ Deploys a **Layer 7 Application Gateway with Web Application Firewall (WAF)** to
 ---
 <p float="center">
   <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235618.png" width="450" alt="imag2">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235511.png" width="450" alt="imag3">
 </p>
 ---
 
@@ -257,13 +256,13 @@ Implements **Azure Firewall** to enforce centralized outbound traffic control, e
 
 ---
 
-### 📸 Recommended Screenshots
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235929.png" width="450" alt="imag5">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20001020.png">
+</p>
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000921.png" alt="imag4">
+</p>
 
-| Screenshot                              | Description                                                    |
-|-----------------------------------------|----------------------------------------------------------------|
-| **Azure Firewall Overview**             | Basic info + public IP address                                 |
-| **Route Table View (UDR)**              | UDR for app/db subnet pointing to Azure Firewall               |
-| **Diagnostic Settings**                 | Configured to send logs to Log Analytics or Sentinel workspace |
 
 ---
 
@@ -312,14 +311,19 @@ Deploys the **application layer** using **Azure Kubernetes Service (AKS)**, enab
 
 ---
 
-### 📸 Recommended Screenshots
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000121.png" alt="imag5">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000147.png">
+</p>
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000211.png">
 
-| Screenshot                               | Description                                                      |
-|------------------------------------------|------------------------------------------------------------------|
-| **AKS Cluster Overview**                 | Portal view showing version, node pools, and networking config  |
-| **Workload Identity Setup**              | Azure AD app registration and federated credential screenshot   |
-| **Pod Security Policies / Network Policy**| Applied rules to limit pod-to-pod or pod-to-external traffic    |
-| **Defender for Containers Dashboard**    | Alerts and vulnerabilities tied to AKS workloads                |
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000310.png">
+
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000334.png">
+
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000348.png">
+
+</p>
 
 ---
 
@@ -367,15 +371,20 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
   - Prevents exposure of secrets over public endpoints (if enabled)
 
 ---
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235958.png" alt="imag5">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/1.png">
+</p>
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/2.png">
 
-### 📸 Recommended Screenshots
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/6.png">
 
-| Screenshot                             | Description                                                  |
-|----------------------------------------|--------------------------------------------------------------|
-| **Key Vault Overview**                 | Portal view showing vault settings and access configuration |
-| **IAM Role Assignments**               | List of assigned identities (AKS, users, Logic App, etc.)    |
-| **Activity Logs in Sentinel**          | Example alert for secret read/delete activity                |
-| **Logic App Triggered by Vault Access**| Workflow run history showing triggered action                |
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/7.png">
+
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/4.png">
+
+</p>
+
 
 ---
 
