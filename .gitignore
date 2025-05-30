@@ -5,3 +5,4 @@ terraform.tfstate.*
 *.backup
 crash.log*.tfvars
 environments/prod/terraform-debug.log
+terraform-debug.log
