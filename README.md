@@ -207,14 +207,10 @@ Deploys a **Layer 7 Application Gateway with Web Application Firewall (WAF)** to
   - Allows encrypted communication to the backend as well
 
 ---
+<p align="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235618.png, https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235511.png" width="450" alt="Architecture diagram">
+</p>
 
-### 📸 Recommended Screenshots
-
-| Screenshot                              | Description                                                   |
-|-----------------------------------------|---------------------------------------------------------------|
-| **Application Gateway Overview**        | Azure Portal → App Gateway → Basic settings + public IP      |
-| **WAF Configuration Tab**               | OWASP rules enabled + protection mode (Prevention/Detection) |
-| **Listener and Backend Pool Settings**  | Frontend listener → Backend pool → Routing configuration     |
 
 ---
 
