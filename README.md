@@ -316,11 +316,9 @@ Deploys the **application layer** using **Azure Kubernetes Service (AKS)**, enab
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000147.png">
 </p>
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000211.png">
-
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000310.png">
-
+</p>
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000334.png">
-
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000348.png">
 
 </p>
@@ -376,13 +374,11 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/1.png">
 </p>
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/2.png">
-
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/6.png">
-
+</p>
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/7.png">
-
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/4.png">
-
+</p>
 </p>
 
 
