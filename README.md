@@ -82,6 +82,7 @@ This architecture is built to be **highly secure**, **modular**, and **productio
 └── azure-pipelines.yml
 
 ``` 
+---
 
 <p align="center">
   <img src="docs/images/diagram.png" width="450" alt="Architecture diagram">
