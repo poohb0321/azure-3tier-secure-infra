@@ -144,7 +144,7 @@ Establishes the **core virtual network infrastructure** necessary for secure, se
   <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235511.png" width="450" alt="imag5">
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/5dcdf2ee6f8106ce804b8bac234ab5aafa4a4642/images/3tier-architecture.png" width="450" alt="imag6">
 </p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/5dcdf2ee6f8106ce804b8bac234ab5aafa4a4642/images/Screenshot%202025-05-27%20235851.png" width="450" alt="imag4">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/5564d9b97fc53db565b33ae3f9fb7f8f79c32217/images/Screenshot%202025-05-27%20235901.png" width="450" alt="imag4">
 </p>
 
 
