@@ -4,6 +4,11 @@ This project delivers a secure, scalable **3-tier cloud architecture** on Micros
 
 ---
 
+![img 1](images/Screenshot 2025-05-30 130104.png)
+
+
+---
+
 ### 🧩 3-Tier Model
 
 - **Web Tier**:
@@ -58,9 +63,6 @@ This project delivers a secure, scalable **3-tier cloud architecture** on Micros
 ---
 
 This architecture is built to be **highly secure**, **modular**, and **production-grade**, supporting modern DevSecOps practices and ready for enterprise deployment.
-<img src="../images/Screenshot 2025-05-30 130104.png"
-     alt="GCP_IaaS_PaaS_FaaS.png"
-     style="float: left; margin-right: 10px;" />
 
 
 ## 📂 Folder Structure
