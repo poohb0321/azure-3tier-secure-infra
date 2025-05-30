@@ -140,14 +140,13 @@ Establishes the **core virtual network infrastructure** necessary for secure, se
   - Prevents direct internet access
 
 ---
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235511.png" width="450" alt="imag5">
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/5dcdf2ee6f8106ce804b8bac234ab5aafa4a4642/images/3tier-architecture.png" width="450" alt="imag6">
+</p>
+<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/5dcdf2ee6f8106ce804b8bac234ab5aafa4a4642/images/Screenshot%202025-05-27%20235851.png" width="450" alt="imag4">
+</p>
 
-### 📸 Recommended Screenshots
-
-| Screenshot                           | Description                                                  |
-|--------------------------------------|--------------------------------------------------------------|
-| **Azure VNet topology**              | Portal view showing VNet with all 3 subnets                 |
-| **NSG rule summary**                 | Inbound/outbound rules applied on app and db subnets        |
-| **Route table (UDR)**                | Custom route sending egress traffic to Azure Firewall       |
 
 ---
 
@@ -207,15 +206,10 @@ Deploys a **Layer 7 Application Gateway with Web Application Firewall (WAF)** to
   - Allows encrypted communication to the backend as well
 
 ---
-<p float="left">
+<p float="center">
   <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235618.png" width="450" alt="imag2">
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235511.png" width="450" alt="imag3">
 </p>
-
-<p align="right">
-  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235511.png" width="450" alt="imag3">
-</p>
-
 ---
 
 ### ✅ Key Benefits
