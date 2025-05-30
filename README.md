@@ -84,16 +84,8 @@ This architecture is built to be **highly secure**, **modular**, and **productio
 ``` 
 
 <p align="center">
-  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/af432222509b8932dd8e1ef3d7cbb9761b5656cf/images/Screenshot%202025-05-30%20130104.png" 
-width="450" alt="folder structure"
-style="margin-top:-500px"
->
+  <img src="docs/images/diagram.png" width="450" alt="Architecture diagram">
 </p>
-
----
-
-
-
 
 ---
 # ⚙️ Terraform Modules – Detailed Implementation
