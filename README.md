@@ -144,9 +144,6 @@ Establishes the **core virtual network infrastructure** necessary for secure, se
   <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235511.png" width="450" alt="imag5">
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/5dcdf2ee6f8106ce804b8bac234ab5aafa4a4642/images/3tier-architecture.png" width="450" alt="imag6">
 </p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/5564d9b97fc53db565b33ae3f9fb7f8f79c32217/images/Screenshot%202025-05-27%20235901.png" width="450" alt="imag4">
-</p>
-
 
 ---
 
@@ -155,6 +152,12 @@ Establishes the **core virtual network infrastructure** necessary for secure, se
 - Enforces **Zero Trust** principles with layered segmentation
 - Enables centralized traffic inspection and control
 - Easily reusable across environments (dev, prod)
+
+---
+
+<p float="center">
+ <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/5564d9b97fc53db565b33ae3f9fb7f8f79c32217/images/Screenshot%202025-05-27%20235901.png" width="450" alt="imag4">
+</p>
 
 ---
 
@@ -206,9 +209,12 @@ Deploys a **Layer 7 Application Gateway with Web Application Firewall (WAF)** to
   - Allows encrypted communication to the backend as well
 
 ---
+
 <p float="center">
   <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/044e784ace7e282060b611634bac73500d9a6073/images/Screenshot%202025-05-27%20235618.png" width="450" alt="imag2">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235929.png" width="450" alt="imag8">
 </p>
+
 ---
 
 ### ✅ Key Benefits
@@ -257,7 +263,6 @@ Implements **Azure Firewall** to enforce centralized outbound traffic control, e
 ---
 
 <p float="center">
-  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235929.png" width="450" alt="imag8">
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20001020.png" width="450" alt="imag9">
 </p>
 <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000921.png" width="450" alt="imag0">
@@ -296,6 +301,13 @@ Deploys the **application layer** using **Azure Kubernetes Service (AKS)**, enab
 
 ---
 
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000121.png" width="450" alt="imag12">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000147.png" width="450" alt="imag13">
+</p>
+
+---
+
 ### 🔐 Security Features
 
 - **Workload Identity**:
@@ -312,15 +324,8 @@ Deploys the **application layer** using **Azure Kubernetes Service (AKS)**, enab
 ---
 
 <p float="center">
-  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000121.png" width="450" alt="imag12">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000147.png" width="450" alt="imag13">
-</p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000211.png" width="450" alt="imag14">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000310.png" width="450" alt="imag15">
-</p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000334.png" width="450" alt="imag16">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000348.png" width="450" alt="imag17">
-
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000211.png" width="450" alt="imag14">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000310.png" width="450" alt="imag15">
 </p>
 
 ---
@@ -331,6 +336,13 @@ Deploys the **application layer** using **Azure Kubernetes Service (AKS)**, enab
 - **Scalable container orchestration** with pod-level access control
 - Fully integrated with Azure VNet and **Defender for Containers**
 - Enforces **Zero Trust within the cluster**
+
+---
+
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000334.png" width="450" alt="imag16">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-28%20000348.png" width="450" alt="imag17">
+</p>
 
 ---
 
@@ -356,6 +368,13 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
 
 ---
 
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235958.png" width="450" alt="imag21">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/1.png" width="450" alt="imag22">
+</p>
+
+---
+
 ### 🔐 Security Features
 
 - **RBAC-Based Access**:
@@ -369,18 +388,11 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
   - Prevents exposure of secrets over public endpoints (if enabled)
 
 ---
-<p float="center">
-  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/9077c67f14bf3f85a9610e64294b0a2ed5e18548/images/Screenshot%202025-05-27%20235958.png" width="450" alt="imag21">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/1.png" width="450" alt="imag22">
-</p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/2.png" width="450" alt="imag23">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/6.png" width="450" alt="imag24">
-</p>
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/7.png" width="450" alt="imag25">
-<img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/4.png" width="450" alt="imag26">
-</p>
-</p>
 
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a014baae145b968ff4f16254cb8d4f8e97c9eb11/images/2.png" width="450" alt="imag23">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/6.png" width="450" alt="imag24">
+</p>
 
 ---
 
@@ -393,6 +405,12 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
 
 ---
 
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/7.png" width="450" alt="imag25">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/1f993ff14ea6566e737465773aa94828e9c51f88/images/4.png" width="450" alt="imag26">
+</p>
+
+---
 
 ## 6. `sentinel`
 
@@ -427,7 +445,12 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
 - Sentinel alerts trigger Logic Apps for automated response.
 - Alerts flow: **Sentinel → Alert → Playbook → Email/SOC Notification**
 
-> 📸 **Recommended Screenshot**: Sentinel → Incidents tab + Analytics Rules tab.
+---
+
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a73bf6e8c58ccfe2b034146417de616b2250e24c/images/10.png" width="450" alt="imag23">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a73bf6e8c58ccfe2b034146417de616b2250e24c/images/11.png" width="450" alt="imag24">
+</p>
 
 ---
 
@@ -505,21 +528,12 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
 - Trigger: HTTP request
 - Action: Send email via Office 365 Outlook connector
 
-> 📸 **Recommended Screenshot**:
-  - Logic App run history showing the alert triggered and email sent
-  - Postman request sent to Logic App (simulate alert)
-
 ---
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/4a7099ae200361784fb0edb6c4e2b7da67681dc4/images/8.png" width="450" alt="imag21">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a73bf6e8c58ccfe2b034146417de616b2250e24c/images/9.png" width="450" alt="imag22">
+</p>
 
-## 🔐 Security Architecture Highlights
-
-| Feature                        | Description                                                         |
-|-------------------------------|---------------------------------------------------------------------|
-| **Zero Trust Network**        | NSGs, Private Endpoints, Azure Firewall, UDR                        |
-| **Threat Detection**          | Sentinel analytics + Defender alerts                                |
-| **Remediation Automation**    | Logic Apps triggered via Sentinel alert                             |
-| **Security as Code**          | Azure Policies deployed via Terraform module                        |
-| **IAM Hardening**             | Workload Identity, Key Vault RBAC, conditional access (planned)     |
 
 ---
 
@@ -529,9 +543,6 @@ Deploys **Azure Key Vault** to centrally manage application secrets, certificate
 - Continuous security monitoring with Defender + Sentinel
 - Automated alerting and response via Logic App
 - Enforced Zero Trust across identity, network, and data layers
-
----
-
 
 ---
 
@@ -571,14 +582,10 @@ Implements **Azure Policy-as-Code** to automate the enforcement of security and 
 
 ---
 
-### 📸 Recommended Screenshots
-
-| Screenshot                                  | Description                                                   |
-|---------------------------------------------|---------------------------------------------------------------|
-| **Policy Compliance Overview**              | Overall compliance score from Azure Policy blade             |
-| **Assigned Policies View**                  | Shows policies bound to the resource group/subscription      |
-| **Non-Compliant Resources List**            | Details on which resources are violating each policy         |
-| **Terraform Code Snippet for Assignment**   | Example of policy assignment via Terraform                   |
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a73bf6e8c58ccfe2b034146417de616b2250e24c/images/12.png" width="450" alt="imag25">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a73bf6e8c58ccfe2b034146417de616b2250e24c/images/13.png" width="450" alt="imag26">
+</p>
 
 ---
 
@@ -651,6 +658,15 @@ This project uses an automated CI/CD pipeline configured in **Azure DevOps** to 
      - Triggers a **Logic App** for automated email alerting or remediation
 
 This pipeline provides a secure, repeatable, and auditable mechanism for deploying and monitoring cloud infrastructure, aligning with DevSecOps best practices.
+
+---
+
+<p float="center">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a73bf6e8c58ccfe2b034146417de616b2250e24c/images/Screenshot%202025-05-28%20002839.png" width="450" alt="imag25">
+  <img src="https://github.com/poohb0321/azure-3tier-secure-infra/blob/a73bf6e8c58ccfe2b034146417de616b2250e24c/images/Screenshot%202025-05-28%20002900.png" width="450" alt="imag26">
+</p>
+
+---
 
 # 🔐 Security Tools & Features – Detailed Documentation
 
